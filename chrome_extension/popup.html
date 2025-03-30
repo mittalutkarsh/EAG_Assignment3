@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Finance Agent</title>
+  <style>
+    body {
+      width: 500px;
+      margin: 0;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    textarea, input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #3367d6;
+    }
+    .panel {
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    pre {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 4px;
+      overflow: auto;
+      max-height: 300px;
+      white-space: pre-wrap;
+    }
+    .tab-nav {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 15px;
+    }
+    .tab {
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+    .tab.active {
+      border-bottom: 2px solid #4285f4;
+      font-weight: bold;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Finance Agent</h1>
+  
+  <div class="tab-nav">
+    <div class="tab active" data-tab="generate">Generate Strategy</div>
+    <div class="tab" data-tab="backtest">Backtest</div>
+    <div class="tab" data-tab="logs">LLM Logs</div>
+  </div>
+  
+  <div class="container">
+    <div id="generate-tab" class="tab-content active">
+      <h2>Generate Trading Strategy</h2>
+      <textarea id="strategy-query" rows="4" placeholder="Describe the trading strategy you want to create...">Create an original moving average crossover strategy for Bitcoin with a 15-day short MA and 40-day long MA.</textarea>
+      <button id="generate-btn">Generate Strategy</button>
+      <div id="strategy-result" class="panel" style="display: none;">
+        <h3>Generated Strategy</h3>
+        <pre id="strategy-code"></pre>
+      </div>
+    </div>
+    
+    <div id="backtest-tab" class="tab-content">
+      <h2>Backtest Strategy</h2>
+      <label for="backtest-days">Days of data:</label>
+      <input type="number" id="backtest-days" value="365" min="30" max="1000">
+      <button id="backtest-btn">Run Backtest</button>
+      <div id="backtest-result" class="panel" style="display: none;">
+        <h3>Backtest Results</h3>
+        <pre id="backtest-output"></pre>
+        <button id="evaluate-btn">Evaluate Strategy</button>
+      </div>
+      <div id="evaluation-result" class="panel" style="display: none;">
+        <h3>Strategy Evaluation</h3>
+        <p><strong>Score:</strong> <span id="eval-score"></span></p>
+        <p><strong>Feedback:</strong></p>
+        <pre id="eval-feedback"></pre>
+      </div>
+      <div id="debug-panel" class="panel" style="display: none;">
+        <h3>Debug Information</h3>
+        <button id="toggle-debug-btn">Show/Hide Debug Info</button>
+        <pre id="debug-output" style="display: none;"></pre>
+      </div>
+    </div>
+    
+    <div id="logs-tab" class="tab-content">
+      <h2>LLM Interaction Logs</h2>
+      <button id="fetch-logs-btn">Refresh Logs</button>
+      <button id="copy-logs-btn">Copy All Logs</button>
+      <pre id="llm-logs"></pre>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html> 
